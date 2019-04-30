@@ -61,15 +61,6 @@ void print_in_binary(uint8_t byte)
 }
 
 
-
-void print_in_binary(uint8_t byte)
-{
-    for (uint8_t bit = 7; bit > 0; bit--)
-    {
-        cout << bit_digit(byte, bit);
-    }
-}
-
 void
 print_in_binary(const void* data, size_t size)
 {
@@ -95,26 +86,54 @@ void calc(uint16_t op1, char operat, uint16_t op2)
     print_in_hex(&op2, sizeof(op2));
     cout<<" = ";
     uint16_t res;
-    if(operat==&)
+    if(operat == '&')
     {
         res = op1 & op2;
     }
-    if(operat==|)
+    if(operat == '|')
     {
         res = op1 | op2;
     }
-    if(operat==^)
+    if(operat == '^')
     {
         res = op1 ^ op2;
     }
     cout<<res;
 }
 
+struct student
+{
+    char name [17];
+    uint16_t year;
+    float avarage;
+    uint8_t gender : 1;
+    uint8_t courses;
+    student* starosta;
+};
 
 int main()
 {
-    calc(1025, &, 127);
+    student students [3] =
+    {
+        {"Name1", 2018, 4.5, 1, 1,nullptr},
+        {"Name2", 2018, 4.6, 1, 0,&students[0]},
+        {"Name3", 2018, 4.4, 1, 1,&students[0]},
+    };
+    cout<<"Address of students"<<&students<<"\n";
+    cout<<"Size of students"<<sizeof (students)<<"\n";
 
+    for( int i=0; i<3; i++)
+    {
+    cout<<"Addres of student" << i <<&students[i]<<"\n";
+    cout<<"Size of student" << i <<sizeof(students[i])<<"\n";
+    }
+
+    cout<<"Address of element"<< &students[1],name<<"\n";
+    cout<<"Size of element"<< sizeof(&students[1],name)<<"\n";
+    print_in_hex(&students[1],avarage, sizeof(&students[1],name));
+
+    /*
+    calc(1025, &, 127);
     assert(nibble_to_hex(0x0) == '0');
     assert(nibble_to_hex(0x1) == '1');
     assert(nibble_to_hex(0x2) == '2');
@@ -131,4 +150,6 @@ int main()
     assert(nibble_to_hex(0xd) == 'd');
     assert(nibble_to_hex(0xe) == 'e');
     assert(nibble_to_hex(0xf) == 'f');
+    */
+    return 0;
 }
